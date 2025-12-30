@@ -58,6 +58,7 @@ def simple_rename():
     logger.debug(f"Path to pictures: {fotos_path}")
     pictures = get_file_names(fotos_path)
     logger.debug(f"Found pictures: {pictures}")
+    print_table_one_dim(pictures)
     pass
 
 # ask user for path to directory with pictures
@@ -92,6 +93,24 @@ def get_file_names(path):
     logger.debug(f"{pic_type_heic_cnt} .HEIC Files, {pic_type_jpg_cnt} .JPG Files")
     return pictures
 
+# TODO Implement function to display the files in a structured way.
+# The function should be able to display either one dimensional or two dimensional lists
+# when a new name sheme was already defined.
+def print_table_one_dim(picture_names: list[str]) -> bool:
+    # get longest name
+    len_longest_file_name = len(picture_names[0])
+    for picture in picture_names:
+        if len(picture) > len_longest_file_name:
+            len_longest_file_name = len(picture)
+    
+    print('+-' + len_longest_file_name * '-' + '-+')
+    for picture in picture_names:
+        print('| '+ picture + (len_longest_file_name - len(picture)) * ' ' + ' |')
+        print('+-' + len_longest_file_name * '-' + '-+')
+    
+    return True
+
+# TODO Implement function(s) to generate a new name for each file. Following should be supported Prefix, Suffix, Automatic Numbering
 
 # main task
 main()
